@@ -1,0 +1,18 @@
+{
+    "name": "Vector",
+    "version": "1.0.0",
+    "description": "Minimal vector implementation for embeded systems like arduino without STL",
+    "keywords": "vector",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Nico2018/Vector.git"
+    },
+    "authors": [{
+        "name": "Nicolas Pereyra",
+        "email": "npereyra215@gmail.com",
+        "maintainer": true
+    }],
+    "license": "MIT",
+    "frameworks": "*",
+    "platforms": "*"
+}
