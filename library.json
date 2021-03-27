@@ -1,11 +1,11 @@
 {
-    "name": "Vector",
-    "version": "1.0.0",
+    "name": "VectorArduino",
+    "version": "2.1.0",
     "description": "Minimal vector implementation for embeded systems like arduino without STL",
-    "keywords": "vector",
+    "keywords": "vector,arduino",
     "repository": {
         "type": "git",
-        "url": "https://github.com/Nico2018/Vector.git"
+        "url": "https://github.com/Nico2018/VectorArduino.git"
     },
     "authors": [{
         "name": "Nicolas Pereyra",
