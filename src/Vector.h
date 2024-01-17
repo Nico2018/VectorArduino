@@ -1,6 +1,5 @@
 #ifndef VECTOR_H
 #define VECTOR_H
-#include <Arduino.h>
 #include <Utils.h>
 
 template <class T> class Vector {
@@ -19,7 +18,7 @@ public:
   T *GetElements();
   void Sort(bool (*sort)(T &a,
                          T &b)); // sort must return true if swap must be done
-  void Push(T element, bool back = true);
+  void Push(T element);
 };
 
 template <class T> Vector<T>::Vector() {}
@@ -35,35 +34,18 @@ template <class T> void Vector<T>::Initialize(T *elements, unsigned int len) {
   }
 }
 
-template <class T> void Vector<T>::Push(T element, bool back) {
-  if (_current_elements > 0) {
-    T elements[_current_elements];
-    for (unsigned int i = 0; i < _current_elements; i++) {
-      elements[i] = _elements[i];
-    }
-    delete[] _elements;
-    _current_elements++;
-    _elements = new T[_current_elements];
-    if (back) {
-      for (unsigned int i = 0; i < _current_elements - 1; i++) {
-        _elements[i] = elements[i];
-      }
-      _elements[_current_elements - 1] = element;
-    } else {
-      for (unsigned int i = 1, j = 0; i < _current_elements; i++, j++) {
-        _elements[i] = elements[j];
-      }
-      _elements[0] = element;
-    }
-  } else {
-    _elements = new T[1];
-    _elements[0] = element;
-    _current_elements++;
-  }
+template <class T> void Vector<T>::Push(T element) {
+  T *elements = new T[_current_elements + 1];
+  memcpy(elements, _elements, _current_elements * sizeof(T));
+  delete[] _elements;
+  _elements = elements;
+  _elements[_current_elements] = element;
+  _current_elements++;
 }
 
 template <class T> void Vector<T>::Clear() {
   delete[] _elements;
+  _elements = nullptr;
   _current_elements = 0;
 }
 
@@ -72,11 +54,8 @@ template <class T> Vector<T>::~Vector() { delete[] _elements; }
 template <class T> int Vector<T>::Size() { return _current_elements; }
 
 template <class T> T &Vector<T>::operator[](unsigned int index) {
-
-  if (index > _current_elements) {
-    Utils::DBG("index " + String(index) + " is out of edges");
-    for (;;)
-      ;
+  if (index >= _current_elements) {
+    throw "Index out of range";
   }
   return _elements[index];
 }
