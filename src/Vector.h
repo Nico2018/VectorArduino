@@ -35,14 +35,14 @@ template <class T> void Vector<T>::Initialize(T *elements, unsigned int len) {
 }
 
 template <class T> void Vector<T>::Push(T element) {
-  T *elements = new T[_current_elements + 1];
-  memcpy(elements, _elements, _current_elements * sizeof(T));
+  T *new_elements =
+      new T[_current_elements + 1]; // Cambiado el nombre de la variable
+  memcpy(new_elements, _elements, _current_elements * sizeof(T));
   delete[] _elements;
-  _elements = elements;
+  _elements = new_elements;
   _elements[_current_elements] = element;
   _current_elements++;
 }
-
 template <class T> void Vector<T>::Clear() {
   delete[] _elements;
   _elements = nullptr;
