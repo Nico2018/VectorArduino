@@ -37,7 +37,9 @@ template <class T> void Vector<T>::Initialize(T *elements, unsigned int len) {
 template <class T> void Vector<T>::Push(T element) {
   T *new_elements =
       new T[_current_elements + 1]; // Cambiado el nombre de la variable
-  memcpy(new_elements, _elements, _current_elements * sizeof(T));
+  if (_current_elements > 0) {
+    memcpy(new_elements, _elements, _current_elements * sizeof(T));
+  }
   delete[] _elements;
   _elements = new_elements;
   _elements[_current_elements] = element;
